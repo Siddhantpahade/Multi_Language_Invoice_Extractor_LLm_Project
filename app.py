@@ -1,7 +1,3 @@
-def is_valid_prompt(prompt):
-    # Check if the prompt has any word characters and is longer than a certain length
-    return bool(re.search(r'\w+', prompt)) and len(prompt) > 10
-
 from dotenv import load_dotenv
 
 load_dotenv()  # Load all the environment variables from .env
@@ -33,11 +29,7 @@ def get_gemini_response(input, image, prompt):
             raise ValueError("The response was blocked due to safety concerns.")
         
         # Assuming we want the first candidate's first part text
-        content = candidates[0].content
-        if not content:
-            raise ValueError("No content found in the candidate.")
-        
-        parts = content.parts
+        parts = candidates[0].content.parts
         if not parts:
             raise ValueError("No parts found in the candidate content.")
         
@@ -61,6 +53,13 @@ def input_image_details(uploaded_file):
         return image_parts
     else:
         raise FileNotFoundError("No file uploaded")
+
+def is_valid_prompt(prompt):
+    # Enhanced check for valid prompt, ensuring it is relevant and meaningful
+    keywords = ['invoice', 'date', 'amount', 'customer', 'details', 'bill', 'language', 'service']
+    if any(keyword in prompt.lower() for keyword in keywords):
+        return True
+    return False
 
 # Initialize our Streamlit app
 st.set_page_config(page_title="Multilingual Invoice Analyzer")
