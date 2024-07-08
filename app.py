@@ -2,7 +2,6 @@ def is_valid_prompt(prompt):
     # Check if the prompt has any word characters and is longer than a certain length
     return bool(re.search(r'\w+', prompt)) and len(prompt) > 10
 
-# Your existing code below
 from dotenv import load_dotenv
 
 load_dotenv()  # Load all the environment variables from .env
