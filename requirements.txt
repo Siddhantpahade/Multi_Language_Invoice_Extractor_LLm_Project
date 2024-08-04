@@ -5,3 +5,6 @@ langchain
 PyPDF2
 chromadb
 pytesseract
+plotly
+tensorflow
+tf-keras
